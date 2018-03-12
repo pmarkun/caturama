@@ -1,0 +1,171 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/html2canvas.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
+
+    </head>
+<body>
+	<style>
+    body {
+      	font-family: Roboto;
+        font-size:18;
+    }
+
+		#menu {
+      text-align: center;
+			width:600px;
+			float:left;
+      height:600px;
+      background-color:#F6D347;
+      margin:8px;
+      font-size:21px;
+
+		}
+
+    #menuinner {
+      background-image: url("bg.svg.png");
+      width:550px;
+      height:550px;
+      margin:20 auto;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    #menu h1 {
+      font-size: 59px;
+      font-weight: bolder;
+      text-transform: uppercase;
+      padding:15px;
+      color:#FFFFFF;
+
+    }
+
+    #menu b {
+      text-transform: uppercase;
+      text-weight:bold;
+    }
+
+    #menu b.pratododia {
+      color:#FF6054;
+    }
+    #menu b.outros {
+      color:#FF6600;
+    }
+    #menu #menu-outrospratos {
+      list-style: none;
+      text-align: center;
+      margin:0 auto;
+      padding:0;
+    }
+
+
+    #menu .section {
+      padding:8px;
+    }
+
+    #menu .small {
+      font-size:16px;
+    }
+
+		#formulario {
+      width:400px;
+			float:left;
+      margin:10px;
+		}
+
+
+	</style>
+	<div id="menu">
+    <div id="menuinner">
+	 	<h1>Cantina<br />Caturama</h1>
+
+    <div class="section">
+      <b class="pratododia">Prato do dia:</b><br />
+      <span id="menu-pratododia"></span>
+    </div>
+
+    <div class="section">
+    <b class="outros">Temos também:</b><br />
+    <ul id="menu-outrospratos">
+    </li>
+    </div>
+
+    <div class="section">
+      <b class="outros">Acompanhamentos:</b><br />
+      <span id="menu-acompanhamento"></span>
+    </div>
+
+    <div class="section">
+      <span class="small">Rua Alfredo Maia, 506 - Luz</span>
+    </div>
+	</div>
+
+	<div id="formulario">
+    <h2>Preencha o cardapio</h2>
+    <form>
+      <div class="form-group">
+        <label for="pratododia">Prato do dia</label>
+        <textarea class="auto form-control" id="pratododia"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="outrospratos">Outros pratos</label>
+		    <textarea  class="auto form-control" id="outrospratos"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="acompanhamento">Acompanhamentos</label>
+        <textarea  class="auto form-control" id="acompanhamento"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="agradecimentos">Agradecimentos</label>
+        <textarea  class="auto form-control" id="agradecimentos"></textarea>
+      </div>
+
+      <div class="form-group">
+        <a href="#" class="button" id="atualizar">Visualizar</a>
+        <a href="#" class="button" id="gerar">Gerar imagem</a>
+    </form>
+
+    </div>
+  </div>
+<script>
+	$(document).ready(function () {
+
+	$("#atualizar").click(function () {
+    $(".auto").each(function () {
+      var c = $(this).val()
+      var c_id = $(this).attr('id')
+      if (c_id == "outrospratos") {
+        var pratos = c.split("\n")
+
+        for (i in pratos) {
+          console.log(pratos[i])
+          $("#menu-outrospratos").html()
+          $("#menu-outrospratos").append("<li>"+pratos[i]+"</li>")
+        }
+      }
+      else {
+        $("#menu-"+c_id).text(c);
+      }
+    })
+  });
+
+$("#gerar").click(function () {
+  html2canvas(document.querySelector("#menu")).then(canvas => {
+  var img = canvas.toDataURL("image/png");
+  document.write('<img src="'+img+'"/>');
+  });
+})
+
+  });
+
+</script>
+</body>
+</html>
